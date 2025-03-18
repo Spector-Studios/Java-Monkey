@@ -3,14 +3,54 @@
  */
 package com.spectorstudios;
 
+import java.util.Scanner;
+
+import com.spectorstudios.lexer.Lexer;
+import com.spectorstudios.repl.Repl;
+import com.spectorstudios.tokens.TokenType;
+import com.spectorstudios.tokens.Token;
+
 public class App {
-  public String getGreeting() {
-    return "Hello Monkey!";
-  }
+  public static final Scanner scanner = new Scanner(System.in);
 
   public static void main(String[] args) {
-    System.out.println(new App().getGreeting());
-    App test = new App();
-    System.out.println(test.getGreeting());
+
+    String input = """
+
+    let result = add(five, ten);
+    +/-*5;
+    let false_x = true;
+    if (else) {
+    return true_false = false;
+    }
+
+    x == y
+    43 != 76
+
+    """;
+
+    //Token token = new Token(TokenType.PLUS, "+");
+
+    Lexer lexer = new Lexer(input);
+    System.out.println(lexer.ch);
+    Token actual;
+    boolean endOfInput = false;
+
+    while(!endOfInput) {
+      actual = lexer.nextToken();
+      System.out.println(actual.getType().toString());
+      System.out.println(actual.getType().name());
+      System.out.println(actual.getLiteral());
+      System.out.println("");
+
+      if (actual.getType() == TokenType.EOF) {
+        endOfInput = true;
+      }
+    }
+
+    Repl repl = new Repl(scanner);
+    repl.start();
+
+    scanner.close();
   }
 }
