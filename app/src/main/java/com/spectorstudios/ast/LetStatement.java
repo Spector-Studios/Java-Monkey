@@ -2,15 +2,15 @@ package com.spectorstudios.ast;
 
 import com.spectorstudios.tokens.Token;
 
-public class LetStatement implements IStatement{
+public class LetStatement implements IStatement {
   private final Token token;
   private final Identifier name;
-  private final IExpression value;
+  private IExpression value;
 
-  public LetStatement(Token token, Identifier name, IExpression value) {
+  public LetStatement(final Token token, final Identifier name) {
     this.token = token;
     this.name = name;
-    this.value = value;
+    // this.value = value;
   }
 
   public Identifier getName() {
@@ -18,9 +18,29 @@ public class LetStatement implements IStatement{
   }
 
   @Override
-  public void statementNode() {}
+  public void statementNode() {
+  }
 
   @Override
-  public String tokenLiteral() {return token.getLiteral();}
-  
+  public String tokenLiteral() {
+    return token.getLiteral();
+  }
+
+  @Override
+  public String string() {
+    StringBuilder sBuilder = new StringBuilder();
+
+    sBuilder.append(token.getLiteral() + " ");
+    sBuilder.append(name.string());
+
+    if (value != null) {
+      sBuilder.append(" = ");
+      sBuilder.append(value.string());
+    }
+
+    sBuilder.append(";");
+
+    return sBuilder.toString();
+  }
+
 }

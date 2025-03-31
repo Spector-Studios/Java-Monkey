@@ -22,8 +22,8 @@ public class LexerTest {
     Lexer lexer = new Lexer(input);
     Token actual = lexer.nextToken();
     
-    System.out.println(actual.getType().toString());
-    System.out.println(actual.getLiteral());
+    //System.out.println(actual.getType().toString());
+    //System.out.println(actual.getLiteral());
     assertNotNull(actual);
     assertEquals(token.getType(), actual.getType());
     assertEquals(token.getLiteral(), actual.getLiteral());

@@ -1,5 +1,7 @@
 package com.spectorstudios.ast;
 
 public interface INode {
-  String tokenLiteral();
+  public abstract String tokenLiteral();
+
+  public abstract String string();
 }

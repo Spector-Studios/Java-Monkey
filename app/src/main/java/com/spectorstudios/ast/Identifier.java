@@ -4,7 +4,7 @@ import com.spectorstudios.tokens.Token;
 
 public class Identifier implements IExpression{
   private final Token token;
-  private final String value;
+  private String value;
 
   public Identifier(Token token, String value) {
     this.token = token;
@@ -20,6 +20,11 @@ public class Identifier implements IExpression{
 
   @Override
   public String tokenLiteral() {return token.getLiteral();}
+
+  @Override
+  public String string() {
+     return value;
+  }
 
 
 }
