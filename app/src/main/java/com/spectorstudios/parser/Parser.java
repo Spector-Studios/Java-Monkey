@@ -3,6 +3,7 @@ package com.spectorstudios.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spectorstudios.ast.IExpression;
 import com.spectorstudios.ast.IStatement;
 import com.spectorstudios.ast.Identifier;
 import com.spectorstudios.ast.LetStatement;
@@ -43,7 +44,7 @@ public class Parser {
   }
 
   private boolean expectPeekAndNext(TokenType type) {
-    if(peekTokenIs(type)) {
+    if (peekTokenIs(type)) {
       nextToken();
       return true;
     } else {
@@ -103,8 +104,8 @@ public class Parser {
 
   private ReturnStatement parseReturnStatement() {
     Token token = currToken;
-    
-    //TODO parse expression
+
+    // TODO parse expression
     nextToken();
 
     while (!currTokenIs(TokenType.SEMICOLON)) {
@@ -114,8 +115,15 @@ public class Parser {
     return new ReturnStatement(token);
   }
 
+  private IExpression parsePrefixExpression() {
+    return null;
+  }
 
-  //ERROR HANDLING
+  private IExpression parseInfixExpression() {
+    return null;
+  }
+
+  // ERROR HANDLING
 
   private void peekError(TokenType type) {
     errors.add("Expected TokenType:" + type.toString() + " ==> Got:" + peekToken.getType().toString());
