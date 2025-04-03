@@ -28,7 +28,7 @@ public enum TokenType {
 
   EQ("=="),
   NOT_EQ("!="),
-  //TODO Add <= and >=
+  //TODO Add <= and >= and support for it
 
   // Delimiters
   COMMA(","),
