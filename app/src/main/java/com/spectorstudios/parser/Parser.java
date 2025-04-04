@@ -19,7 +19,7 @@ public class Parser {
   private Token peekToken;
   private final List<String> errors;
 
-  public Parser(Lexer lexer) {
+  public Parser(final Lexer lexer) {
     this.lexer = lexer;
     this.errors = new ArrayList<String>();
     nextToken();
@@ -30,34 +30,11 @@ public class Parser {
     return errors;
   }
 
-  private void nextToken() {
-    currToken = peekToken;
-    peekToken = lexer.nextToken();
-  }
-
-  private boolean currTokenIs(TokenType type) {
-    return currToken.getType() == type;
-  }
-
-  private boolean peekTokenIs(TokenType type) {
-    return peekToken.getType() == type;
-  }
-
-  private boolean expectPeekAndNext(TokenType type) {
-    if (peekTokenIs(type)) {
-      nextToken();
-      return true;
-    } else {
-      peekError(type);
-      return false;
-    }
-  }
-
   public Program parseProgram() {
-    Program program = new Program();
+    final Program program = new Program();
 
     while (!currTokenIs(TokenType.EOF)) {
-      IStatement statement = parseStatement();
+      final IStatement statement = parseStatement();
       if (statement != null) {
         program.addStatement(statement);
       }
@@ -66,6 +43,29 @@ public class Parser {
     }
 
     return program;
+  }
+
+  private void nextToken() {
+    currToken = peekToken;
+    peekToken = lexer.nextToken();
+  }
+
+  private boolean currTokenIs(final TokenType type) {
+    return currToken.getType() == type;
+  }
+
+  private boolean peekTokenIs(final TokenType type) {
+    return peekToken.getType() == type;
+  }
+
+  private boolean expectPeekAndNext(final TokenType type) {
+    if (peekTokenIs(type)) {
+      nextToken();
+      return true;
+    } else {
+      peekError(type);
+      return false;
+    }
   }
 
   private IStatement parseStatement() {
@@ -81,13 +81,13 @@ public class Parser {
   }
 
   private LetStatement parseLetStatement() {
-    Token token = currToken;
+    final Token token = currToken;
 
     if (!expectPeekAndNext(TokenType.IDENT)) {
       return null;
     }
 
-    Identifier name = new Identifier(currToken, currToken.getLiteral());
+    final Identifier name = new Identifier(currToken, currToken.getLiteral());
 
     if (!expectPeekAndNext(TokenType.ASSIGN)) {
       return null;
@@ -103,7 +103,7 @@ public class Parser {
   }
 
   private ReturnStatement parseReturnStatement() {
-    Token token = currToken;
+    final Token token = currToken;
 
     // TODO parse expression
     nextToken();
@@ -119,13 +119,13 @@ public class Parser {
     return null;
   }
 
-  private IExpression parseInfixExpression() {
+  private IExpression parseInfixExpression(final IExpression expression) {
     return null;
   }
 
   // ERROR HANDLING
 
-  private void peekError(TokenType type) {
+  private void peekError(final TokenType type) {
     errors.add("Expected TokenType:" + type.toString() + " ==> Got:" + peekToken.getType().toString());
   }
 }
